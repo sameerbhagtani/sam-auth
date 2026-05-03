@@ -1,7 +1,10 @@
 import fs from "fs";
 import path from "path";
 
-const certPath = path.join(process.cwd(), "cert");
+const certPath =
+    process.env.NODE_ENV === "production"
+        ? "/etc/secrets"
+        : path.join(process.cwd(), "cert");
 
 export const privateKey = fs.readFileSync(
     path.join(certPath, "private-key.pem"),
