@@ -31,7 +31,7 @@ export default function createServerApplication(): Application {
     });
 
     app.use("/.well-known", discoveryRoutes);
-    app.use("/clients", clientRoutes);
+    // app.use("/clients", clientRoutes);
     app.use("/auth", authRoutes);
     app.use("/authorize", authorizeRoutes);
     app.use("/", tokenRoutes);
