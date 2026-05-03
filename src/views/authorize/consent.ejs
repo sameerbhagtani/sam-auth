@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Consent | SamAuth</title>
+        <link rel="stylesheet" href="/css/consent.css" />
+    </head>
+    <body>
+        <main class="page-shell">
+            <section class="card consent-card">
+                <div class="card__eyebrow">SamAuth</div>
+                <h1 class="card__title">Authorization request</h1>
+                <p class="card__subtitle">
+                    <strong><%= clientName %></strong> is requesting permission
+                    to use your SamAuth account.
+                </p>
+
+                <div class="consent-panel">
+                    <div class="app-summary">
+                        <div class="app-summary__label">Application</div>
+                        <h2 class="app-summary__name"><%= clientName %></h2>
+                        <p class="fineprint">
+                            Requested redirect:
+                            <span class="muted"><%= redirectUri %></span>
+                        </p>
+                    </div>
+
+                    <div class="scope-list">
+                        <%
+                            function getScopeLabel(s) {
+                                return {
+                                    openid: 'Identity access',
+                                    email: 'Email access',
+                                    profile: 'Profile access'
+                                }[s] || s;
+                            }
+
+                            function getScopeDescription(s) {
+                                return {
+                                    openid: 'Allow this app to identify you through your SamAuth account.',
+                                    email: 'Let the app read your email address and verification status if requested.',
+                                    profile: 'Let the app see profile details such as your name and avatar when available.'
+                                }[s] || 'This application is requesting access to this scope.';
+                            }
+
+                            let scopes = requestedScopes || [];
+                        %>
+
+                        <% scopes.forEach(function(scope, index) {
+                            let label = getScopeLabel(scope);
+                            let description = getScopeDescription(scope);
+                        %>
+                            <div class="scope-item">
+                                <div class="scope-pill"><%= index + 1 %></div>
+                                <div>
+                                    <strong><%= label %></strong>
+                                    <p><%= description %></p>
+                                </div>
+                            </div>
+                        <% }) %>
+                    </div>
+
+                    <p class="consent-note">
+                        You can continue now or go back if you do not recognize
+                        this request.
+                    </p>
+
+                    <form class="form-grid" method="POST" action="/authorize">
+                        <input
+                            type="hidden"
+                            name="client_id"
+                            value="<%= authorizeQuery.client_id %>"
+                        />
+                        <input
+                            type="hidden"
+                            name="redirect_uri"
+                            value="<%= authorizeQuery.redirect_uri %>"
+                        />
+                        <input
+                            type="hidden"
+                            name="scope"
+                            value="<%= authorizeQuery.scope %>"
+                        />
+                        <input
+                            type="hidden"
+                            name="response_type"
+                            value="<%= authorizeQuery.response_type %>"
+                        />
+                        <input
+                            type="hidden"
+                            name="state"
+                            value="<%= authorizeQuery.state %>"
+                        />
+
+                        <div class="button-row consent-actions">
+                            <button class="btn btn-primary" type="submit">
+                                Allow access
+                            </button>
+                            <button class="btn btn-secondary" type="button">
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>

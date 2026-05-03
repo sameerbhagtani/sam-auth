@@ -1,0 +1,20 @@
+@import url("/css/base.css");
+
+.auth-card {
+    position: relative;
+}
+
+.auth-links {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+    font-size: 0.94rem;
+}
+
+.auth-links a {
+    color: var(--muted);
+}
+
+.auth-links a:hover {
+    color: var(--text);
+}

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Login | SamAuth</title>
+        <link rel="stylesheet" href="/css/login.css" />
+    </head>
+    <body>
+        <main class="page-shell">
+            <section class="card auth-card">
+                <div class="card__eyebrow">SamAuth</div>
+                <h1 class="card__title">Welcome back</h1>
+
+                <form class="form-grid" method="POST" action="/auth/login">
+                    <input
+                        type="hidden"
+                        name="client_id"
+                        value="<%= authorizeQuery.client_id %>"
+                    />
+                    <input
+                        type="hidden"
+                        name="redirect_uri"
+                        value="<%= authorizeQuery.redirect_uri %>"
+                    />
+                    <input
+                        type="hidden"
+                        name="scope"
+                        value="<%= authorizeQuery.scope %>"
+                    />
+                    <input
+                        type="hidden"
+                        name="response_type"
+                        value="<%= authorizeQuery.response_type %>"
+                    />
+                    <input
+                        type="hidden"
+                        name="state"
+                        value="<%= authorizeQuery.state %>"
+                    />
+
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                            required
+                            maxlength="255"
+                        />
+                    </div>
+
+                    <div class="field">
+                        <label for="password">Password</label>
+                        <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        />
+                    </div>
+
+                    <button class="btn btn-primary" type="submit">
+                        Sign in
+                    </button>
+                </form>
+
+                <div class="auth-links">
+                    <a href="<%= "/auth/register?client_id=" + encodeURIComponent(authorizeQuery.client_id) + "&redirect_uri=" + encodeURIComponent(authorizeQuery.redirect_uri) + "&scope=" + encodeURIComponent(authorizeQuery.scope) + "&response_type=" + encodeURIComponent(authorizeQuery.response_type) + "&state=" + encodeURIComponent(authorizeQuery.state) %>">Create an account</a>
+                </div>
+            </section>
+        </main>
+        <script src="/js/auth.js"></script>
+    </body>
+</html>
