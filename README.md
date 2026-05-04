@@ -20,9 +20,8 @@ A custom OpenID Connect (OIDC) and OAuth 2.0 implementation built from scratch u
 
 ### Prerequisites
 
-- Node.js 18+ (npm 9+)
-- PostgreSQL 12+
-- Docker (optional, for postgres)
+- Node.js & npm
+- Docker
 - Git
 
 ### Installation
